@@ -9,7 +9,7 @@ function TodoList() {
    }
 
    function addTask() {
-
+   
    }
 
    function deleteTask(index) {
@@ -31,7 +31,7 @@ function TodoList() {
          <div>
             <input type="text" placeholder="Enter a Task..." value={newTask} onChange={handleInputChange} />
 
-            <button className="add-button">
+            <button className="add-button" onClick={addTask}>
                Add
             </button>
          </div>
