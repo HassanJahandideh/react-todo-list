@@ -1,30 +1,28 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 function TodoList() {
-   const [tasks, setTasks] = useState(['Drink a Coffee', 'Leran TypeScript', 'Go to the Gym']);
-   const [newTask, setNewTask] = useState("");
+   const [tasks, setTasks] = useState(['Task 1', 'Task 2', 'Task 3']);
+   const [newTask, setNewTask] = useState('');
 
-   function handleInputChange(event) {
-      setNewTask(event.target.value);
+   function handleInputChange(e) {
+      setNewTask(e.target.value);
    }
 
    function addTask() {
       if (newTask.trim() !== '') {
          setTasks(t => [...t, newTask]);
-         setNewTask("");
+         setNewTask('');
       }
    }
 
    function deleteTask(index) {
-      const deletingTask = tasks.filter((_, i) => i !== index);
-      setTasks(deletingTask);
+      setTasks(t => t.filter((_, i) => i !== index));
    }
 
    function moveTaskUp(index) {
       if (index > 0) {
          const updatedTasks = [...tasks];
-         [updatedTasks[index], updatedTasks[index - 1]] =
-         [updatedTasks[index - 1], updatedTasks[index]];
+         [updatedTasks[index], updatedTasks[index - 1]] = [updatedTasks[index - 1], updatedTasks[index]];
          setTasks(updatedTasks);
       }
    }
@@ -32,49 +30,42 @@ function TodoList() {
    function moveTaskDown(index) {
       if (index < tasks.length - 1) {
          const updatedTasks = [...tasks];
-         [updatedTasks[index], updatedTasks[index + 1]] =
-         [updatedTasks[index + 1], updatedTasks[index]];
+         [updatedTasks[index], updatedTasks[index + 1]] = [updatedTasks[index + 1], updatedTasks[index]];
          setTasks(updatedTasks);
       }
    }
 
+
    return (
-      <div className="to-do-list">
-         <h1>To-Do-List</h1>
-
+      <div>
+         <h1>Todo List</h1>
          <div>
-            <input type="text" placeholder="Enter a Task..." value={newTask} onChange={handleInputChange} />
-
-            <button className="add-button" onClick={addTask}>
+            <input type="text" value={newTask} onChange={handleInputChange} />
+            <button onClick={addTask}>
                Add
             </button>
          </div>
 
          <ol>
-            {tasks.map((task, index) => 
+            {tasks.map((task, index) =>
                <li key={index}>
-                  <span className="text">
+                  <span>
                      {task}
                   </span>
-
-                  <button className="delete-button"
-                  onClick={() => deleteTask(index)}>
-                     Delete   
+                  <button onClick={() => deleteTask(index)}>
+                     Delete
                   </button>
 
-                  <button className="move-button"
-                  onClick={() => moveTaskUp(index)}>
-                     Up  
+                  <button onClick={() => moveTaskUp(index)}>
+                     Up
                   </button>
 
-                  <button className="move-button"
-                  onClick={() => moveTaskDown(index)}>
-                     Down  
+                  <button onClick={() => moveTaskDown(index)}>
+                     Down
                   </button>
                </li>
             )}
          </ol>
-
       </div>
    );
 }
